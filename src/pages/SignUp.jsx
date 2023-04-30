@@ -2,6 +2,7 @@ import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import app from "../Firebase/firebase-config";
 
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const auth = getAuth(app);
 
@@ -15,6 +16,8 @@ const SignUp = () => {
     createUserWithEmailAndPassword(auth,email,password)
     .then((usr)=>{
       console.log(usr)
+      setEmail("");
+      setPassword("")
     })
     .catch((error)=>{
       console.log(error)
@@ -52,8 +55,10 @@ const SignUp = () => {
                   </div>
                   <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                     <button className="btn btn-primary btn-lg">Signup</button>
+                    <button className="btn btn-outline btn-lg ms-3">Google</button>
                   </div>
-
+                  <span>Already have an account?  <Link to="/login">Login</Link></span>
+                 
                 </form>
 
               </div>
