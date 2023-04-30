@@ -2,7 +2,7 @@ function App() {
   
   return (
     <>
-    <div className='max-width-100% bg-dark'>
+    <div className='width-100%'>
     </div>
     </>
   )
