@@ -16,7 +16,7 @@ const Header = () => {
   return (
     <Container>
       <div className="d-flex justify-content-between">
-        <h2>Notes Keeper</h2>
+        <Link to="/"><h2>Notes Keeper</h2></Link> 
         <div className="">
          <Link to="/login" classNameName="me-5">Login</Link>
          <Link to="/signup">SignUp</Link>
