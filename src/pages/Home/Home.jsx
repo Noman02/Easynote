@@ -1,21 +1,96 @@
-import { Col, Row} from "react-bootstrap"
+import { Button, Card, Col, Row } from "react-bootstrap";
 // import Hero from "./Hero"
-import Notes from "./Notes"
-import DisplayNotes from "./DisplayNotes"
+import DisplayNotes from "./DisplayNotes";
+import { useEffect, useState } from "react";
+import { collection, getDocs,addDoc } from "firebase/firestore";
+import { db } from "../../Firebase/firebase-config";
 
 const Home = () => {
+  const [addNote,setAddNote]=useState({title:"",content:""})
+  const [notes, setNotes] = useState([]);
+
+  const notRef = collection(db, "notes");
+
+  useEffect(() => {
+    const getNotes = async () => {
+      const data = await getDocs(notRef);
+      setNotes(data.docs.map((docs) => ({ ...docs.data(), id: docs.id })));
+    };
+    getNotes();
+  }, [notRef]);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setAddNote({ ...addNote, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await addDoc(notRef, addNote)
+  };
+
   return (
     <div className="mx-4">
-    <Row>
-    <Col sm={4}>
-    <Notes/>
-    </Col>
-    <Col sm={8}>
-      <DisplayNotes/>
-    </Col>
+      <Row>
+        <Col sm={4}>
+          <div>
+            <Card style={{ width: "auto", backgroundColor: "#212A3E" }}>
+              <form
+                // method="post"
+                onSubmit={handleSubmit}
+              >
+                <div className="p-4white">
+                  <label className="text-black fs-5 my-2 text-white">
+                    Add Notes
+                  </label>
+                  <input
+                    className="w-100 border-0 text-white"
+                    type="text"
+                    placeholder="Enter Title..."
+                    style={{ backgroundColor: "#212A3E" }}
+                    name="title"
+                    onChange={handleChange}
+                    value={addNote.title}
+                  />{" "}
+                  <br />
+                  <textarea
+                    style={{ backgroundColor: "#212A3E" }}
+                    className="w-100 mt-3 border-0 text-white"
+                    type="text"
+                    placeholder="Type Content Here..."
+                    rows={4}
+                    name="content"
+                    onChange={handleChange}
+                    value={addNote.content}
+                  />
+                </div>
+                <div className="d-flex md:justify-content-center">
+                  <Button type="submit" className="me-2" variant="primary">
+                    SUBMIT
+                  </Button>
+                  <Button type="edit" className="me-2" variant="primary">
+                    SUBMIT
+                  </Button>
+                </div>
+              </form>
+            </Card>
+          </div>
+        </Col>
+
+        <Col sm={8}>
+          <div>
+          
+            {
+              notes && notes.map(note=>(
+                <DisplayNotes data={note} key={note.id}/>
+              ))  
+            }
+          </div>
+        </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

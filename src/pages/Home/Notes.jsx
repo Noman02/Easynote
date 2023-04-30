@@ -1,25 +1,36 @@
-import { Button, Card } from "react-bootstrap"
+// import { collection, getDocs } from "firebase/firestore"
+// import { useEffect, useState } from "react"
+// import { Button, Card } from "react-bootstrap"
+// import { db } from "../../Firebase/firebase-config"
 
 
+// const Notes = () => {
+//   const [notes,setNotes]=useState([])
+//   console.log(notes)
+//   const notRef= collection(db, "notes")
 
-const Notes = () => {
-  return (
-   <div >
-   <Card style={{ width: 'auto', backgroundColor: '#212A3E' }}>
-    <form>
-        <div className="p-4white">
-        <label className="text-black fs-5 my-2 text-white">Add Notes</label>
-        <input className="w-100 border-0 text-white" type="text" placeholder="New Note" style={{backgroundColor: "#212A3E"}} /> <br/>
-        <textarea  style={{backgroundColor: "#212A3E"}} className="w-100 mt-3 border-0 text-white" type="text" placeholder="content" rows={4} />
-        </div>
-        <div className="d-flex md:justify-content-center">
-        <Button className="me-2" variant="primary">SUBMIT</Button>
-        <Button variant="success">UPDATE</Button>
-        </div>
-    </form>
- </Card>
-   </div>
-  )
-}
+//   useEffect(()=>{
+//     const getNotes= async ()=>{
+//       const data= await getDocs(notRef)
+//       setNotes(data.docs.map(docs=>({...docs.data(), id: docs.id})))
+//     }
+//     getNotes()
+//   },[])
 
-export default Notes
+//   const handleChange=(e)=>{
+//     const name= e.target.name;
+//     const value= e.target.value;
+//     setNotes({...notes, [name]: value})
+//   }
+
+//   const handleSubmit =(e)=>{
+//     e.preventDefault()
+    
+//   } 
+
+//   return (
+   
+//   )
+// }
+
+// export default Notes
