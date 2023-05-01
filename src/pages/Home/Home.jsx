@@ -11,7 +11,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../Firebase/firebase-config";
-import "./Home.css"
+import "./Home.css";
 
 const Home = () => {
   const [addNote, setAddNote] = useState({ title: "", content: "" });
@@ -104,8 +104,8 @@ const Home = () => {
               </div>
             </form>
           </div>
-          </Col>
-          
+        </Col>
+
         <Col sm={8}>
           <div className="">
             <h5>All Notes</h5>

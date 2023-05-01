@@ -1,6 +1,7 @@
 import { Button, Card } from "react-bootstrap";
 import { PropTypes } from "prop-types";
 import moment from "moment";
+import "./DisplayNotes.css";
 
 const DisplayNotes = (props) => {
   const { note, updateNote, handleDelete } = props;
@@ -19,7 +20,7 @@ const DisplayNotes = (props) => {
         </span>
         <div className="d-flex md:justify-content-center">
           <Button
-            className="me-2 text-warning"
+            className="me-2 text-warning delete"
             variant="outline"
             size="sm"
             onClick={() => handleDelete(note.id)}
@@ -36,7 +37,7 @@ const DisplayNotes = (props) => {
             }
             type="edit"
             variant="outline"
-            className="text-white"
+            className="text-white edit"
           >
             Edit
           </Button>

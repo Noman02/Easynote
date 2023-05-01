@@ -1,0 +1,16 @@
+.delete {
+  border: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.delete:hover {
+  background-color: rgb(126, 78, 78);
+}
+.edit {
+  border: none;
+  transition: all 0.5s ease-in-out;
+}
+
+.edit:hover {
+  background-color: #696b68;
+}

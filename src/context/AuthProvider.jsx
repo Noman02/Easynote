@@ -1,58 +1,60 @@
-import { createContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react";
 import { PropTypes } from "prop-types";
-import {getAuth, onAuthStateChanged, signOut}from "firebase/auth"
+import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import app from "../Firebase/firebase-config";
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 
-export const AuthContext= createContext()
-const auth = getAuth(app)
+export const AuthContext = createContext();
+const auth = getAuth(app);
 
-const AuthProvider = ({children}) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-    const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
-  const createUser = (email, password) =>{
-    setLoading(true)
-    return createUserWithEmailAndPassword(auth, email, password, name)
-}
+  const createUser = (email, password) => {
+    setLoading(true);
+    return createUserWithEmailAndPassword(auth, email, password, name);
+  };
 
-const logIn = (email, password) =>{
-  setLoading(true)
-  return signInWithEmailAndPassword(auth, email, password);
-}
+  const logIn = (email, password) => {
+    setLoading(true);
+    return signInWithEmailAndPassword(auth, email, password);
+  };
 
-const logOut=()=>{
-  setLoading(true)
-  return signOut(auth)
-}
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
-useEffect(() =>{
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) =>{
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
       setLoading(false);
-  })
+    });
 
-  return () =>{
+    return () => {
       unsubscribe();
-  }
-}, [])
+    };
+  }, []);
 
-const authInfo={
-  createUser,
-  logIn,
-  logOut,
-  user,
-  loading
-}
+  const authInfo = {
+    createUser,
+    logIn,
+    logOut,
+    user,
+    loading,
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
-  )
-}
+  );
+};
 
 AuthProvider.propTypes = {
-    children: PropTypes.string.isRequired,
-  };
-  
+  children: PropTypes.string.isRequired,
+};
 
-export default AuthProvider
+export default AuthProvider;

@@ -1,10 +1,10 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { doc,setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { AuthContext } from "../context/AuthProvider";
 import { db } from "../Firebase/firebase-config";
 const SignUp = () => {
-  const {createUser}=useContext(AuthContext)
+  const { createUser } = useContext(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,13 +12,12 @@ const SignUp = () => {
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
 
-
   const handleSubmit = (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-    createUser( email, password)
-      .then(async(userCred) => {
-        await setDoc(doc(db, "users", userCred.user.uid), {email});
+    createUser(email, password)
+      .then(async (userCred) => {
+        await setDoc(doc(db, "users", userCred.user.uid), { email });
 
         console.log(userCred.user);
         setEmail("");
