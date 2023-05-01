@@ -11,7 +11,7 @@ import {
   updateDoc,
 } from "firebase/firestore";
 import { db } from "../../Firebase/firebase-config";
-import "./Home.css";
+
 
 const Home = () => {
   const [addNote, setAddNote] = useState({ title: "", content: "" });
