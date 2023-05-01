@@ -1,26 +1,29 @@
-import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import app, { db } from "../Firebase/firebase-config";
-
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { doc,setDoc } from "firebase/firestore";
-
-const auth = getAuth(app);
-
+import { AuthContext } from "../context/AuthProvider";
+import { db } from "../Firebase/firebase-config";
 const SignUp = () => {
+  const {createUser}=useContext(AuthContext)
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const from = location.state?.from?.pathname || "/";
 
-    createUserWithEmailAndPassword(auth, email, password)
+
+  const handleSubmit = (e) => {
+  e.preventDefault();
+
+    createUser( email, password)
       .then(async(userCred) => {
         await setDoc(doc(db, "users", userCred.user.uid), {email});
 
         console.log(userCred.user);
         setEmail("");
         setPassword("");
+        navigate(from, { replace: true });
       })
 
       .catch((error) => {
@@ -72,9 +75,6 @@ const SignUp = () => {
                       <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                         <button className="btn btn-primary btn-lg">
                           Signup
-                        </button>
-                        <button className="btn btn-outline btn-lg ms-3">
-                          Google
                         </button>
                       </div>
                       <span>

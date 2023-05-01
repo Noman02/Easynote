@@ -47,7 +47,8 @@ const Home = () => {
   const updatedNote= async(id)=>{
     const upNote= doc(db, "notes", id)
     await updateDoc(upNote, addNote)
-    console.log("id from updated note",id)
+    setAddNote({ content: "", title: "" });
+    
   }
 
   const handleDelete = async (id) => {
@@ -105,6 +106,9 @@ const Home = () => {
         </Col>
 
         <Col sm={8}>
+        <div className="d-flex justify-content-between">
+        <h2>All Notes</h2>
+      </div>
           <div>
             {notes &&
               notes.map((note) => (

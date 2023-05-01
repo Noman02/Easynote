@@ -1,23 +1,26 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import app from "../Firebase/firebase-config";
+import { useContext, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthProvider";
 
-import { useState } from "react";
-import { Link } from "react-router-dom";
-
-const auth = getAuth(app);
 
 const SignUp = () => {
+  const {logIn}=useContext(AuthContext)
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit =(e)=>{
     e.preventDefault()
 
-    signInWithEmailAndPassword(auth,email,password)
+    logIn(email,password)
     .then((usr)=>{
       console.log(usr)
       setEmail("");
       setPassword("")
+      navigate(from, { replace: true });
     })
     .catch((error)=>{
       console.log(error)
