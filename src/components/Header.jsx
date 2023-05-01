@@ -13,21 +13,37 @@ import { useContext } from "react";
 import { Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthProvider";
+import "./Header.css";
 
 const Header = () => {
-  const {logOut,user}=useContext(AuthContext)
-  console.log(user)
-  const handleLogOut=()=>{
-    logOut().then(()=>{}).catch((error)=>console.log(error))
-  }
+  const { logOut, user } = useContext(AuthContext);
+  console.log(user);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {})
+      .catch((error) => console.log(error));
+  };
   return (
-    <Container>
+    <Container className="p-4">
       <div className="d-flex justify-content-between">
-        <Link to="/"><h2>Notes Keeper</h2></Link> 
+        <Link className="heading" to="/">
+          <h3>Notes Keeper</h3>
+        </Link>
         <div className="">
-         <Link to="/login" classNameName="me-5">Login</Link>
-         <Link to="/signup">SignUp</Link>
-         <Link onClick={handleLogOut}>Logout</Link>
+          {user?.uid ? (
+            <Link className="link" onClick={handleLogOut}>
+              Logout
+            </Link>
+          ) : (
+            <>
+              <Link className="link" to="/login" classNameName="me-5">
+                Login
+              </Link>
+              <Link className="link" to="/signup">
+                SignUp
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </Container>
