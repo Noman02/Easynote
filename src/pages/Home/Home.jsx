@@ -2,12 +2,13 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 // import Hero from "./Hero"
 import DisplayNotes from "./DisplayNotes";
 import { useEffect, useState } from "react";
-import { collection, getDocs,addDoc } from "firebase/firestore";
+import { collection, getDocs,addDoc, deleteDoc, doc} from "firebase/firestore";
 import { db } from "../../Firebase/firebase-config";
 
 const Home = () => {
   const [addNote,setAddNote]=useState({title:"",content:""})
   const [notes, setNotes] = useState([]);
+  
 
   const notRef = collection(db, "notes");
 
@@ -28,7 +29,14 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addDoc(notRef, addNote)
+    setAddNote({content:"",title:""})
   };
+
+  const handleDelete =async (id)=>{
+    const deleteNote=doc(notRef, id);
+    await deleteDoc(deleteNote)
+    console.log("check id",id)
+  }
 
   return (
     <div className="mx-4">
@@ -83,7 +91,11 @@ const Home = () => {
           
             {
               notes && notes.map(note=>(
-                <DisplayNotes data={note} key={note.id}/>
+                <DisplayNotes
+                 note={note}
+                  key={note.id}
+                   handleDelete={handleDelete}
+                   />
               ))  
             }
           </div>

@@ -1,7 +1,14 @@
 import { Button, Card } from "react-bootstrap"
+import { PropTypes } from "prop-types"
 
-const DisplayNotes = (data) => {
-  const {title,content}=data.data;
+const DisplayNotes = (props) => {
+  const {note,handleDelete}=props
+
+  // const {id,title,content}=data.data;
+
+//  const handleNoteDelete =(id)=>{
+//   handleDelete(id)
+//  }
   
   return (
     <div>
@@ -11,16 +18,21 @@ const DisplayNotes = (data) => {
         </div>
     <Card className="text-black w-auto h-auto my-3 text-white" style={{backgroundColor: "#212A3E", borderBottom: '2px solid #ccc' }} >
     <Card.Body>
-      <Card.Title>{title}</Card.Title>
-      <Card.Text>{content}</Card.Text>
+      <Card.Title>{note.title}</Card.Title>
+      <Card.Text>{note.content}</Card.Text>
       <div className="d-flex md:justify-content-center">
-      <Button className="me-2" variant="primary">SUBMIT</Button>
-      <Button variant="success">UPDATE</Button>
+      <Button className="me-2" variant="primary" onClick={()=>handleDelete(note.id)}>DELETE</Button>
+      <Button type="delete" variant="success">EDIT</Button>
       </div>
     </Card.Body>
   </Card> 
   </div>
   )
+}
+
+DisplayNotes.propTypes={
+  note: PropTypes.string.isRequired,
+  handleDelete: PropTypes.string.isRequired,
 }
 
 export default DisplayNotes
