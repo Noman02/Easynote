@@ -2,13 +2,20 @@ import { Button, Card, Col, Row } from "react-bootstrap";
 // import Hero from "./Hero"
 import DisplayNotes from "./DisplayNotes";
 import { useEffect, useState } from "react";
-import { collection, getDocs,addDoc, deleteDoc, doc} from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  addDoc,
+  deleteDoc,
+  doc,
+  updateDoc
+} from "firebase/firestore";
 import { db } from "../../Firebase/firebase-config";
 
 const Home = () => {
-  const [addNote,setAddNote]=useState({title:"",content:""})
+  const [addNote, setAddNote] = useState({ title: "", content: "" });
   const [notes, setNotes] = useState([]);
-  
+  const [id,setId]=useState("")
 
   const notRef = collection(db, "notes");
 
@@ -28,15 +35,26 @@ const Home = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await addDoc(notRef, addNote)
-    setAddNote({content:"",title:""})
+    await addDoc(notRef, addNote);
+    setAddNote({ content: "", title: "" });
   };
 
-  const handleDelete =async (id)=>{
-    const deleteNote=doc(notRef, id);
-    await deleteDoc(deleteNote)
-    console.log("check id",id)
+  const updateNote= async(note)=>{
+    setAddNote({title: note.title, content: note.content})
+    setId(note.id)
   }
+
+  const updatedNote= async(id)=>{
+    const upNote= doc(db, "notes", id)
+    await updateDoc(upNote, addNote)
+    console.log("id from updated note",id)
+  }
+
+  const handleDelete = async (id) => {
+    const deleteNote = doc(notRef, id);
+    await deleteDoc(deleteNote);
+    
+  };
 
   return (
     <div className="mx-4">
@@ -77,8 +95,8 @@ const Home = () => {
                   <Button type="submit" className="me-2" variant="primary">
                     SUBMIT
                   </Button>
-                  <Button type="edit" className="me-2" variant="primary">
-                    SUBMIT
+                  <Button onClick={()=>updatedNote(id)} className="me-2" variant="primary">
+                    UPDATE
                   </Button>
                 </div>
               </form>
@@ -88,16 +106,15 @@ const Home = () => {
 
         <Col sm={8}>
           <div>
-          
-            {
-              notes && notes.map(note=>(
+            {notes &&
+              notes.map((note) => (
                 <DisplayNotes
-                 note={note}
+                  note={note}
                   key={note.id}
-                   handleDelete={handleDelete}
-                   />
-              ))  
-            }
+                  handleDelete={handleDelete}
+                  updateNote={updateNote}
+                />
+              ))}
           </div>
         </Col>
       </Row>
