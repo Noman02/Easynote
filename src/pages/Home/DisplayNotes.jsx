@@ -23,7 +23,7 @@ const DisplayNotes = (props) => {
         <Card.Title className="mb-3">{note.title}</Card.Title>
         <Card.Text>{note.content}</Card.Text>
         <span className="text-muted">
-          <small className="me-2">Created</small>
+          <small className="me-2">Created:</small>
           {formatTimestamp(note.timestamp)}
         </span>
         <div className="d-flex md:justify-content-center">

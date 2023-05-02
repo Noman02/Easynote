@@ -14,7 +14,10 @@ import {
 import { db } from "../../Firebase/firebase-config";
 
 const Home = () => {
-  const [addNote, setAddNote] = useState({ title: "", content: "" });
+  const [addNote, setAddNote] = useState({
+    title: "",
+    content: "",
+  });
   const [notes, setNotes] = useState([]);
   const [id, setId] = useState("");
 
@@ -44,7 +47,6 @@ const Home = () => {
     setAddNote({
       title: note.title,
       content: note.content,
-      timestamp: Date.Now,
     });
     setId(note.id);
   };
@@ -114,6 +116,7 @@ const Home = () => {
           <div className="">
             <h5>All Notes</h5>
           </div>
+          <hr />
           <div>
             {notes &&
               notes.map((note) => (
