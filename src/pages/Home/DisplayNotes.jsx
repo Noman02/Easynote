@@ -1,10 +1,20 @@
 import { Button, Card } from "react-bootstrap";
 import { PropTypes } from "prop-types";
-import moment from "moment";
+// import moment from "moment";
 import "./DisplayNotes.css";
 
 const DisplayNotes = (props) => {
   const { note, updateNote, handleDelete } = props;
+  // console.log(note)
+
+  const formatTimestamp=(timestamp)=>{
+    if (timestamp) {
+      const date = timestamp.toDate();
+      return date.toLocaleString();
+    } else {
+      return timestamp;
+    }
+  }
 
   return (
     <div
@@ -16,7 +26,7 @@ const DisplayNotes = (props) => {
         <Card.Text>{note.content}</Card.Text>
         <span className="text-muted">
           <small className="me-2">Created</small>
-          {moment().format("Do MMMM YYYY")}
+          {formatTimestamp(note.timestamp)}
         </span>
         <div className="d-flex md:justify-content-center">
           <Button

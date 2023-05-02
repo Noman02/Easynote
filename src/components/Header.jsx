@@ -27,7 +27,7 @@ const Header = () => {
     <Container className="p-4">
       <div className="d-flex justify-content-between">
         <Link className="heading" to="/">
-          <h3>Notes Keeper</h3>
+          <h3>Easynote</h3>
         </Link>
         <div className="">
           {user?.uid ? (
