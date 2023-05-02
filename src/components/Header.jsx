@@ -17,11 +17,11 @@ import "./Header.css";
 
 const Header = () => {
   const { logOut, user } = useContext(AuthContext);
-  console.log(user);
+
   const handleLogOut = () => {
     logOut()
       .then(() => {})
-      .catch((error) => console.log(error));
+      .catch(() => {});
   };
   return (
     <Container className="p-4">

@@ -1,20 +1,18 @@
 import { Button, Card } from "react-bootstrap";
 import { PropTypes } from "prop-types";
-// import moment from "moment";
 import "./DisplayNotes.css";
 
 const DisplayNotes = (props) => {
   const { note, updateNote, handleDelete } = props;
-  // console.log(note)
 
-  const formatTimestamp=(timestamp)=>{
+  const formatTimestamp = (timestamp) => {
     if (timestamp) {
       const date = timestamp.toDate();
       return date.toLocaleString();
     } else {
       return timestamp;
     }
-  }
+  };
 
   return (
     <div

@@ -13,9 +13,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../../Firebase/firebase-config";
 
-
 const Home = () => {
-  // console.log(user)
   const [addNote, setAddNote] = useState({ title: "", content: "" });
   const [notes, setNotes] = useState([]);
   const [id, setId] = useState("");
@@ -39,12 +37,15 @@ const Home = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await addDoc(notRef, addNote);
-    setAddNote({ content: "", title: "", timestamp: serverTimestamp()});
-    
+    setAddNote({ content: "", title: "", timestamp: serverTimestamp() });
   };
 
   const updateNote = async (note) => {
-    setAddNote({ title: note.title, content: note.content, timestamp:Date.Now });
+    setAddNote({
+      title: note.title,
+      content: note.content,
+      timestamp: Date.Now,
+    });
     setId(note.id);
   };
 
@@ -121,7 +122,6 @@ const Home = () => {
                   key={note.id}
                   handleDelete={handleDelete}
                   updateNote={updateNote}
-                  
                 />
               ))}
           </div>
